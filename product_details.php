@@ -35,24 +35,56 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <title><?php echo htmlspecialchars($product['product_name']); ?> - Product Details</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+        .product-image {
+            max-height: 400px;
+            object-fit: contain;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+        }
+        .btn-custom {
+            padding: 10px 20px;
+            font-size: 16px;
+        }
+        .footer {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background-color: #333;
+            color: #fff;
+            padding: 10px 0;
+        }
+    </style>
 </head>
 <body>
     <?php include 'navbar.php'; ?>
 
-    <main class="container mt-4">
-        <h2><?php echo htmlspecialchars($product['product_name']); ?></h2>
-        <div class="row">
-            <div class="col-md-6">
-                <img src="<?php echo htmlspecialchars($product['image_path']); ?>" alt="<?php echo htmlspecialchars($product['product_name']); ?>" class="img-fluid">
+    <div class="container mt-5">
+        <div class="row align-items-center">
+            <!-- Product Image -->
+            <div class="col-md-6 text-center">
+                <img src="<?php echo htmlspecialchars($product['image_path']); ?>" 
+                     alt="<?php echo htmlspecialchars($product['product_name']); ?>" 
+                     class="img-fluid product-image">
             </div>
+            <!-- Product Details -->
             <div class="col-md-6">
-                <h3>$<?php echo htmlspecialchars($product['price']); ?></h3>
-                <p><?php echo nl2br(htmlspecialchars($product['description'])); ?></p>
-                <a href="cart.php?action=add&product_id=<?php echo $product['product_id']; ?>" class="btn btn-success">Add to Cart</a>
+                <h1><?php echo htmlspecialchars($product['product_name']); ?></h1>
+                <h4 class="text-success">₹<?php echo number_format($product['price'], 2); ?></h4>
+                <p class="mt-3"><?php echo nl2br(htmlspecialchars($product['description'])); ?></p>
+                <a href="cart.php?add=<?php echo $product['product_id']; ?>" 
+                   class="btn btn-success btn-custom">
+                    Add to Cart
+                </a>
             </div>
         </div>
-
-    </main>
-
+    </div>
+    <footer class="footer text-center">
+        © 2024 Balajee Sales. All rights reserved.
+    </footer>
 </body>
 </html>

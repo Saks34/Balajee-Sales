@@ -9,6 +9,17 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
     <link rel="stylesheet" href="css/style.css">
+    <style>
+        .footer {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background-color: #333;
+            color: #fff;
+            padding: 10px 0;
+        }
+    </style>
 </head>
 <body>
     <?php include 'navbar.php'; ?>
@@ -26,7 +37,7 @@
                         <div class="product">
                             <img src="' . htmlspecialchars($row['image']) . '" alt="' . htmlspecialchars($row['name']) . '">
                             <h3>' . htmlspecialchars($row['name']) . '</h3>
-                            <span>$' . htmlspecialchars($row['price']) . '</span>
+                            <span>₹' . htmlspecialchars($row['price']) . '</span>
                             <a href="cart.php?add=' . htmlspecialchars($row['product_id']) . '" class="btn">Add to Cart</a>
                         </div>
                     ';
@@ -38,6 +49,8 @@
             ?>
         </div>
     </main>
-    
+    <footer class="footer text-center">
+        © 2024 Balajee Sales. All rights reserved.
+    </footer>
 </body>
 </html>

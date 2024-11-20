@@ -13,6 +13,17 @@ $result = $conn->query($sql);
     <title>All Products</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <style>
+        .footer {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background-color: #333;
+            color: #fff;
+            padding: 10px 0;
+        }
+    </style>
 </head>
 <body>
     <?php include 'navbar.php'; ?>
@@ -40,7 +51,7 @@ $result = $conn->query($sql);
                     <tr>
                         <td><?php echo $product['product_name']; ?></td>
                         <td><?php echo $product['category']; ?></td>
-                        <td>$<?php echo $product['price']; ?></td>
+                        <td>₹<?php echo number_format($product['price'], 2); ?></td>
                         <td><?php echo $product['stock']; ?></td>
                         <td>
                             <a href="edit_product.php?id=<?php echo $product['product_id']; ?>" class="text-decoration-none">Edit</a> | 
@@ -51,5 +62,8 @@ $result = $conn->query($sql);
             </tbody>
         </table>
     </div>
+    <footer class="footer text-center">
+        © 2024 Balajee Sales. All rights reserved.
+    </footer>
 </body>
 </html>

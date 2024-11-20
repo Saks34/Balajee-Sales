@@ -30,7 +30,19 @@ while ($row = $orderStmt->fetch_assoc()) {
     <title>Admin Dashboard - User List</title>
     <!-- Adding Bootstrap 4 CSS -->
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css"> <!-- Link to your custom CSS file -->
+    <link rel="stylesheet" href="css/styles.css"> <!-- Link to your custom CSS file -->
+    <style>
+        .footer {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background-color: #333;
+            color: #fff;
+            padding: 10px 0;
+        }
+    </style>
+
 </head>
 <body>
 <?php include 'navbar.php'; ?>
@@ -75,5 +87,8 @@ while ($row = $orderStmt->fetch_assoc()) {
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <footer class="footer text-center">
+        © 2024 Balajee Sales. All rights reserved.
+    </footer>
 </body>
 </html>

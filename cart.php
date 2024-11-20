@@ -32,6 +32,26 @@ if (isset($_GET['add'])) {
     exit;
 }
 
+// Increment product quantity
+if (isset($_GET['increment'])) {
+    $product_id = $_GET['increment'];
+    if (isset($_SESSION['cart'][$product_id])) {
+        $_SESSION['cart'][$product_id]['quantity'] += 1;
+    }
+    header("Location: cart.php");
+    exit;
+}
+
+// Decrement product quantity
+if (isset($_GET['decrement'])) {
+    $product_id = $_GET['decrement'];
+    if (isset($_SESSION['cart'][$product_id]) && $_SESSION['cart'][$product_id]['quantity'] > 1) {
+        $_SESSION['cart'][$product_id]['quantity'] -= 1;
+    }
+    header("Location: cart.php");
+    exit;
+}
+
 // Remove product from cart
 if (isset($_GET['remove'])) {
     $product_id = $_GET['remove'];
@@ -49,94 +69,33 @@ $cart = $_SESSION['cart'] ?? [];
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Your Cart</title>
     <style>
-        body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    background-color: #f9f9f9;
-}
-
-header {
-    background-color: #333;
-    color: white;
-    padding: 1rem;
-    text-align: center;
-}
-
-header a {
-    color: white;
-    text-decoration: none;
-    background: #28a745;
-    padding: 0.5rem 1rem;
-    border-radius: 5px;
-}
-
-header a:hover {
-    background: #218838;
-}
-
-main {
-    padding: 2rem;
-}
-
-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-bottom: 2rem;
-}
-
-table th, table td {
-    border: 1px solid #ddd;
-    padding: 1rem;
-    text-align: center;
-}
-
-table th {
-    background: #333;
-    color: white;
-}
-
-table tr:nth-child(even) {
-    background: #f2f2f2;
-}
-
-.total {
-    text-align: right;
-    margin-top: 1rem;
-}
-
-.btn {
-    display: inline-block;
-    padding: 0.5rem 1rem;
-    background-color: #007bff;
-    color: white;
-    text-decoration: none;
-    border-radius: 5px;
-}
-
-.btn:hover {
-    background-color: #0056b3;
-}
-
+        .footer {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background-color: #333;
+            color: #fff;
+            padding: 10px 0;
+        }
     </style>
+    <title>Your Cart</title>
 </head>
 <body>
-    <header>
-        <h1>Your Cart</h1>
-        <a href="index.php" class="btn">Continue Shopping</a>
-    </header>
+<?php include 'navbar.php'; ?>
+    
 
-    <main>
+    <div class="container mt-5">
+        <h1 class="mb-4">Your Cart</h1>
         <?php if (!empty($cart)): ?>
-            <table>
-                <thead>
+            <table class="table table-bordered">
+                <thead class="table-dark">
                     <tr>
                         <th>Product</th>
                         <th>Price</th>
@@ -154,25 +113,35 @@ table tr:nth-child(even) {
                     ?>
                         <tr>
                             <td><?php echo htmlspecialchars($item['name']); ?></td>
-                            <td>$<?php echo number_format($item['price'], 2); ?></td>
-                            <td><?php echo $item['quantity']; ?></td>
-                            <td>$<?php echo number_format($subtotal, 2); ?></td>
+                            <td>₹<?php echo number_format($item['price'], 2); ?></td>
                             <td>
-                                <a href="cart.php?remove=<?php echo $id; ?>" class="btn">Remove</a>
+                                <a href="cart.php?decrement=<?php echo $id; ?>" class="btn btn-warning btn-sm" <?php echo $item['quantity'] <= 1 ? 'disabled' : ''; ?>>
+                                    <i class="bi bi-dash"></i>
+                                </a>
+                                <?php echo $item['quantity']; ?>
+                                <a href="cart.php?increment=<?php echo $id; ?>" class="btn btn-success btn-sm">
+                                    <i class="bi bi-plus"></i>
+                                </a>
+                            </td>
+                            <td>₹<?php echo number_format($subtotal, 2); ?></td>
+                            <td>
+                                <a href="cart.php?remove=<?php echo $id; ?>" class="btn btn-danger btn-sm">Remove</a>
                             </td>
                         </tr>
                     <?php endforeach; ?>
                 </tbody>
             </table>
-            <div class="total">
-                <p><strong>Total Price:</strong> $<?php echo number_format($total_price, 2); ?></p>
-                <a href="checkout.php" class="btn">Proceed to Checkout</a>
+            <div class="text-end">
+                <p><strong>Total Price:</strong> ₹<?php echo number_format($total_price, 2); ?></p>
+                <a href="checkout.php" class="btn btn-primary">Proceed to Checkout</a>
             </div>
         <?php else: ?>
             <p>Your cart is empty.</p>
-            <a href="index.php" class="btn">Go Shopping</a>
+            <a href="index.php" class="btn btn-primary">Go Shopping</a>
         <?php endif; ?>
-    </main>
-
+    </div>
+    <footer class="footer text-center">
+        © 2024 Balajee Sales. All rights reserved.
+    </footer>
 </body>
 </html>

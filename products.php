@@ -158,6 +158,15 @@ if (!$brand_result) {
         .product .btn:hover {
             background-color: #218838;
         }
+        .footer {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background-color: #333;
+            color: #fff;
+            padding: 10px 0;
+        }
     </style>
 </head>
 <body>
@@ -228,6 +237,8 @@ if (!$brand_result) {
             <?php endwhile; ?>
         </div>
     </main>
-
+    <footer class="footer text-center">
+        © 2024 Balajee Sales. All rights reserved.
+    </footer>
 </body>
 </html>

@@ -71,6 +71,9 @@ $conn->close();
                 <li class="nav-item">
                     <a class="nav-link" href="cart.php"><i class="bi bi-cart-fill"></i> Cart</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="Aboutus.php"><i class="bi bi-aboutus-fill"></i> About Us</a>
+                </li>
                 <?php if (isset($_SESSION['user_id'])): ?>
                     <?php if (isset($_SESSION['role']) && $_SESSION['role'] == 'admin'): ?>
                         <li class="nav-item"><a class="nav-link" href="admin_dashboard.php">Dashboard</a></li>

@@ -254,14 +254,20 @@ small {
     padding-top: 10px;
 }
 
-/* Footer Styling */
-app-footer {
-    text-align: center;
-    font-size: 0.9em;
-    padding: 20px 0;
-}
+.footer {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background-color: #333;
+            color: #fff;
+            padding: 10px 0;
+        }
 
     </style>
-    <div class="pt-10"><app-footer></app-footer></div>
+    <footer class="footer text-center">
+        © 2024 Balajee Sales. All rights reserved.
+    </footer>
+
 </body>
 </html>

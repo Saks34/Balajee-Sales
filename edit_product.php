@@ -12,11 +12,11 @@ if (isset($_GET['id'])) {
         $category = $_POST['category'];
         $price = $_POST['price'];
         $stock = $_POST['stock'];
-        $image_path = $_POST['image_path'];
+        $image_path = $_POST['image'];
         $description = $_POST['description'];
         $brand = $_POST['brand'];
 
-        $updateSql = "UPDATE products SET name = '$name', category = '$category', price = '$price', stock = '$stock', image_path = '$image_path', description = '$description', brand = '$brand' WHERE product_id = $product_id";
+        $updateSql = "UPDATE products SET product_name = '$name', category = '$category', price = '$price', stock = '$stock', image_path = 'uploads/$image_path', description = '$description', brand = '$brand' WHERE product_id = $product_id";
 
         if ($conn->query($updateSql)) {
             echo "Product updated successfully!";
@@ -37,6 +37,17 @@ if (isset($_GET['id'])) {
     <title>Edit Product</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <Style>
+        .footer {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background-color: #333;
+            color: #fff;
+            padding: 10px 0;
+        }
+    </style>
 </head>
 <body>
     <?php include 'navbar.php'; ?>
@@ -74,5 +85,8 @@ if (isset($_GET['id'])) {
             <button type="submit" class="btn btn-primary">Update Product</button>
         </form>
     </div>
+    <footer class="footer text-center">
+        © 2024 Balajee Sales. All rights reserved.
+    </footer>
 </body>
 </html>
