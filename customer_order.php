@@ -65,17 +65,22 @@ $result = $stmt->get_result();
                             <td><?php echo htmlspecialchars($row['order_id']); ?></td>
                             <td><?php echo date('d M Y, h:i A', strtotime($row['order_date'])); ?></td>
                             <td>
-                                <?php if ($row['status'] === 'Delivered'): ?>
-                                    <span class="badge bg-success">Delivered</span>
-                                <?php elseif ($row['status'] === 'Pending'): ?>
-                                    <span class="badge bg-warning">Pending</span>
-                                <?php else: ?>
-                                    <span class="badge bg-secondary"><?php echo htmlspecialchars($row['status']); ?></span>
-                                <?php endif; ?>
-                            </td>
+    <?php if ($row['status'] === 'Delivered'): ?>
+        <span class="badge bg-success">Delivered</span>
+    <?php elseif ($row['status'] === 'Pending'): ?>
+        <span class="badge bg-warning text-dark">Pending</span>
+    <?php elseif ($row['status'] === 'Cancelled'): ?>
+        <span class="badge bg-danger">Cancelled</span>
+    <?php elseif ($row['status'] === 'Shipped'): ?>
+        <span class="badge bg-info text-dark">Shipped</span>
+    <?php else: ?>
+        <span class="badge bg-secondary"><?php echo htmlspecialchars($row['status']); ?></span>
+    <?php endif; ?>
+</td>
+
                             <td>₹<?php echo number_format($row['total_price'], 2); ?></td>
                             <td>
-                                <a href="order_details.php?id=<?php echo urlencode($row['order_id']); ?>" class="btn btn-primary btn-sm">View Details</a>
+                                <a href="read_order.php?id=<?php echo urlencode($row['order_id']); ?>" class="btn btn-primary btn-sm">View Details</a>
                             </td>
                         </tr>
                     <?php endwhile; ?>

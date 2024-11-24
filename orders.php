@@ -13,7 +13,7 @@ $result = $conn->query($sql);
     <title>Orders</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-    <Style>
+    <style>
         .footer {
             position: fixed;
             bottom: 0;
@@ -23,14 +23,22 @@ $result = $conn->query($sql);
             color: #fff;
             padding: 10px 0;
         }
+
+        .table th, .table td {
+            vertical-align: middle;
+        }
+
+        .badge {
+            font-size: 0.9rem;
+        }
     </style>
 </head>
 <body>
     <?php include 'navbar.php'; ?>
     <div class="container mt-5">
-        <h2>Orders</h2>
-        <table class="table">
-            <thead>
+        <h2 class="mb-4">Orders</h2>
+        <table class="table table-bordered table-striped table-hover">
+            <thead class="table-dark">
                 <tr>
                     <th>Order ID</th>
                     <th>User ID</th>
@@ -43,20 +51,34 @@ $result = $conn->query($sql);
                     <tr>
                         <td><?php echo $order['order_id']; ?></td>
                         <td><?php echo $order['user_id']; ?></td>
-                        <td><?php echo $order['status']; ?></td>
                         <td>
-                            <a href="read_order.php?id=<?php echo $order['order_id']; ?>">Read More</a>
                             <?php 
-                                // Debugging: Check the value of $order['status']
-                                echo '<pre style="display: none;">';
-                                var_dump($order['status']);
-                                echo '</pre>';
-
-                                // Ensure case-insensitivity and trim for comparison
-                                if (strtolower(trim($order['status'])) == 'pending'): 
+                                // Display status as a badge with color based on the status
+                                $status = strtolower(trim($order['status']));
+                                switch ($status) {
+                                    case 'pending':
+                                        echo '<span class="badge bg-secondary">Pending</span>';
+                                        break;
+                                    case 'processing':
+                                        echo '<span class="badge bg-warning">Processing</span>';
+                                        break;
+                                    case 'shipped':
+                                        echo '<span class="badge bg-primary">Shipped</span>';
+                                        break;
+                                    case 'delivered':
+                                        echo '<span class="badge bg-success">Delivered</span>';
+                                        break;
+                                    case 'cancelled':
+                                        echo '<span class="badge bg-danger">Cancelled</span>';
+                                        break;
+                                    default:
+                                        echo '<span class="badge bg-info">' . ucfirst($order['status']) . '</span>';
+                                        break;
+                                }
                             ?>
-                                <a href="mark_as_delivered.php?id=<?php echo $order['order_id']; ?>"> | Mark as Delivered</a>
-                            <?php endif; ?>
+                        </td>
+                        <td>
+                            <a href="admin_orderdetails.php?id=<?php echo $order['order_id']; ?>" class="btn btn-info btn-sm">Read More</a>
                         </td>
                     </tr>
                 <?php endwhile; ?>

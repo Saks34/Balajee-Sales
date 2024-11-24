@@ -129,10 +129,13 @@ if (!$brand_result) {
         }
 
         .product img {
-            width: 100%;
-            height: auto;
-            border-radius: 5px;
-        }
+    width: 100%;
+    height: 300px; /* Increased height for larger images */
+    object-fit: cover; /* Ensures images fit the dimensions without distortion */
+    border-radius: 5px;
+}
+
+
 
         .product h3 {
             font-size: 1.2rem;
